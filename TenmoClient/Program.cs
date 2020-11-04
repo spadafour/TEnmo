@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TenmoClient.Data;
 
 namespace TenmoClient
@@ -8,6 +9,7 @@ namespace TenmoClient
     {
         private static readonly ConsoleService consoleService = new ConsoleService();
         private static readonly AuthService authService = new AuthService();
+        private static readonly AccountService acctService = new AccountService();
 
         static void Main(string[] args)
         {
@@ -86,7 +88,11 @@ namespace TenmoClient
                 }
                 else if (menuSelection == 1)
                 {
-
+                    if (UserService.IsLoggedIn())
+                    {
+                        decimal balance = acctService.GetBalance(UserService.GetUserId());
+                        Console.WriteLine($"Your balance is {balance:C2}.");
+                    }
                 }
                 else if (menuSelection == 2)
                 {
